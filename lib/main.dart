@@ -1,4 +1,5 @@
 import 'package:biomedicalfinal/bluetoothscreen.dart';
+import 'package:biomedicalfinal/chartscreen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:biomedicalfinal/screen3.dart';
@@ -13,7 +14,7 @@ class myapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: splashscreenfinal(),
+        home: SplashScreenFinal(),
         theme: ThemeData(
           appBarTheme: AppBarTheme(backgroundColor: Colors.red),
         ),

@@ -42,6 +42,8 @@ class _screenthreeState extends State<screenthree> {
   //============BLUETOOTH===========//
   bool receiving = true;
 
+  String? _selectedSex; //for dropdown menu
+
   @override
   void initState() {
     super.initState();
@@ -201,11 +203,11 @@ class _screenthreeState extends State<screenthree> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 100),
+                          SizedBox(width: 80),
                           Expanded(
                             child: SizedBox(
                               width: 131,
-                              height: 48,
+                              height: 60,
                               child: Padding(
                                 padding: EdgeInsets.only(left: 15, right: 15),
                                 child: Container(
@@ -213,21 +215,45 @@ class _screenthreeState extends State<screenthree> {
                                     borderRadius: BorderRadius.circular(10.0),
                                     border: Border.all(),
                                   ),
-                                  child: TextFormField(
-                                    controller: _sex,
-                                    textAlign: TextAlign
-                                        .left, // Align text to the left
-                                    decoration: InputDecoration(
-                                      hintText: '',
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your sex';
-                                      }
-                                      return null;
-                                    },
-                                  ),
+                                  child: DropdownButtonFormField<String>(
+                                      value: _selectedSex,
+                                      items: ['Male', 'Female', 'Others']
+                                          .map(
+                                              (sex) => DropdownMenuItem<String>(
+                                                    value: sex,
+                                                    child: Text(sex),
+                                                  ))
+                                          .toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedSex = value;
+                                        });
+                                      },
+                                      // child: TextFormField(
+                                      //   controller: _sex,
+                                      //   textAlign: TextAlign
+                                      //       .left, // Align text to the left
+                                      //   decoration: InputDecoration(
+                                      //     hintText: '',
+                                      //     border: OutlineInputBorder(),
+                                      //   ),
+                                      //   validator: (value) {
+                                      //     if (value == null || value.isEmpty) {
+                                      //       return 'Please enter your sex';
+                                      //     }
+                                      //     return null;
+                                      //   },
+                                      // ),
+                                      decoration: InputDecoration(
+                                        hintText: 'Select Sex',
+                                        border: OutlineInputBorder(),
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please select your sex';
+                                        }
+                                        return null;
+                                      }),
                                 ),
                               ),
                             ),
@@ -376,7 +402,9 @@ class _screenthreeState extends State<screenthree> {
                         child: Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 10),
+                              padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.12),
                               child: SizedBox(
                                 width: 300,
                                 height: 76,

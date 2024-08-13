@@ -18,25 +18,36 @@ class screenfour extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Align(
-            alignment: Alignment.center,
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    "assets/images/iiitn.png"), // Replace with your image path
+                fit: BoxFit.cover, // Adjust the fit as needed
+              ),
+            ),
             child: Align(
-                alignment: Alignment.center,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.amber,
-                      padding: const EdgeInsets.all(25)),
-                  child: const Text('Generate entire Report'),
-                  onPressed: () async {
-                    print('Generate button pressed');
-                    await requestStoragePermission();
-                    await _generateAndDownloadCSV(context);
-                    // await Future.delayed(Duration(milliseconds: 500));
-                    await Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => DatabaseTable()));
-                  },
-                )),
+              alignment: Alignment.center,
+              child: Align(
+                  alignment: Alignment.center,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.amber,
+                        padding: const EdgeInsets.all(25)),
+                    child: const Text('Generate entire Report'),
+                    onPressed: () async {
+                      print('Generate button pressed');
+                      await requestStoragePermission();
+                      await _generateAndDownloadCSV(context);
+                      // await Future.delayed(Duration(milliseconds: 500));
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DatabaseTable()));
+                    },
+                  )),
+            ),
           ),
           SizedBox(height: 20),
           Align(
@@ -67,7 +78,8 @@ class screenfour extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("Patient Report Saved")));
                     String name = lastRowData['username'];
-                    PdfViewerPage('storage/emulated/0/Download/$name-Report.pdf');
+                    PdfViewerPage(
+                        'storage/emulated/0/Download/$name-Report.pdf');
                   },
                 )),
           ),
